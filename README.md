@@ -13,31 +13,31 @@ Entrust - это лаконичны и гибкий способ добавле�
 ## Содержание
 
 - [Установка](#установка)
-- [Настройка](#configuration)
-    - [Пользовательские роли](#user-relation-to-roles)
-    - [Модели](#models)
-        - [Роль](#role)
-        - [Права](#permission)
-        - [Пользователь](#user)
-        - [Мягкое удаление](#soft-deleting)
-- [Использование](#usage)
-    - [Концепции](#concepts)
-        - [Проверка прав и ролей](#checking-for-roles--permissions)
-        - [Возможности пользователей](#user-ability)
-    - [Короткий синтаксис фильтров в роутерах](#short-syntax-route-filter)
-    - [Фильтры в роутерах](#route-filter)
-- [Решение проблем](#troubleshooting)
-- [Лицензия](#license)
+- [Настройка](#Настройка)
+    - [Пользовательские роли](#Пользовательские роли)
+    - [Модели](#Модели)
+        - [Роль](#Роль)
+        - [Права](#Права)
+        - [Пользователь](#Пользователь)
+        - [Мягкое удаление](#Мягкое удаление)
+- [Использование](#Использование)
+    - [Концепции](#Концепции)
+        - [Проверка прав и ролей](#Проверка прав и ролей)
+        - [Возможности пользователей](#Возможности пользователей)
+    - [Короткий синтаксис фильтров в роутерах](#Короткий синтаксис фильтров в роутерах)
+    - [Фильтры в роутерах](#Фильтры в роутерах)
+- [Решение проблем](#Решение проблем)
+- [Лицензия](#Лицензия)
 - [Contribution guidelines](#contribution-guidelines)
 - [Дополнительная информация](#additional-information)
 
 ## Установка
 
-In order to install Laravel 5 Entrust, just add 
+Чтобы устновить Entrust добавьте
 
     "zizaco/entrust": "dev-laravel-5"
 
-to your composer.json. Then run `composer install` or `composer update`.
+в файл composer.json. И в терминале `composer install` или `composer update`.
 
 Then in your `config/app.php` add 
 
@@ -49,7 +49,7 @@ in the providers array and
     
 to the `aliases` array.
 
-## Configuration
+## Настройка
 
 Set the property values in the `config/auth.php`.
 These values will be used by entrust to refer to the correct user table and model.
@@ -57,9 +57,9 @@ These values will be used by entrust to refer to the correct user table and mode
 You can also publish the configuration for this package to further customize table names and model namespaces.  
 Just use `php artisan vendor:publish` and a `entrust.php` file will be created in your app/config directory.
 
-### User relation to roles
+### Пользовательские роли
 
-Now generate the Entrust migration:
+Генерируем миграции Entrust:
 
 ```bash
 php artisan entrust:migration
@@ -72,15 +72,15 @@ You may now run it with the artisan migrate command:
 php artisan migrate
 ```
 
-After the migration, four new tables will be present:
+После миграции в базе данных будет четыре таблицы:
 - `roles` &mdash; stores role records
 - `permissions` &mdash; stores permission records
 - `role_user` &mdash; stores [many-to-many](http://laravel.com/docs/4.2/eloquent#many-to-many) relations between roles and users
 - `permission_role` &mdash; stores [many-to-many](http://laravel.com/docs/4.2/eloquent#many-to-many) relations between roles and permissions
 
-### Models
+### Модели
 
-#### Role
+#### Роли
 
 Create a Role model inside `app/models/Role.php` using the following example:
 
@@ -95,15 +95,16 @@ class Role extends EntrustRole
 ```
 
 The `Role` model has three main attributes:
-- `name` &mdash; Unique name for the Role, used for looking up role information in the application layer. For example: "admin", "owner", "employee".
-- `display_name` &mdash; Human readable name for the Role. Not necessarily unique and optional. For example: "User Administrator", "Project Owner", "Widget  Co. Employee".
-- `description` &mdash; A more detailed explanation of what the Role does. Also optional.
+У модели `Role` есть три главных атрибута:
+- `name` &mdash; Уникальное имя для Role, используется для для поиска информации о ролях в слое приложения. К примеру: "admin", "owner", "employee".
+- `display_name` &mdash; Человеко-понятное название Роли(Role). Не обязательно должно быть уникальным и является опциональным. Например: "User Administrator", "Project Owner", "Widget  Co. Employee".
+- `description` &mdash; Детальное описание роли. Также необязательный параметр.
 
-Both `display_name` and `description` are optional; their fields are nullable in the database.
+Оба параметра `display_name` и `description` опциональны; their fields are nullable in the database. 
 
-#### Permission
+#### Права
 
-Create a Permission model inside `app/models/Permission.php` using the following example:
+Сделайте модель Permission в файле `app/models/Permission.php` используя пример ниже:
 
 ```php
 <?php namespace App;
@@ -115,16 +116,17 @@ class Permission extends EntrustPermission
 }
 ```
 
-The `Permission` model has the same three attributes as the `Role`:
-- `name` &mdash; Unique name for the permission, used for looking up permission information in the application layer. For example: "create-post", "edit-user", "post-payment", "mailing-list-subscribe".
-- `display_name` &mdash; Human readable name for the permission. Not necessarily unique and optional. For example "Create Posts", "Edit Users", "Post Payments", "Subscribe to mailing list".
-- `description` &mdash; A more detailed explanation of the Permission.
+У модели `Permission` есть три таких же атрибута как и у модели `Role`:
+- `name` &mdash; Уникальное имя для прав используется для поиска информации о правах в слое приложения. Например: "create-post", "edit-user", "post-payment", "mailing-list-subscribe".
+- `display_name` &mdash; Человеко-понятное название прав. Не обязательно уникальное и опциональное. К примеру "Create Posts", "Edit Users", "Post Payments", "Subscribe to mailing list".
+- `description` &mdash; Детальное описание модели Permission.
 
+В общем, два последних атрибута могут быть полезным для понимания что делает форма.
 In general, it may be helpful to think of the last two attributes in the form of a sentence: "The permission `display_name` allows a user to `description`."
 
-#### User
+#### Пользователь
 
-Next, use the `EntrustUserTrait` trait in your existing `User` model. For example:
+Далее, используем  `EntrustUserTrait` трейт в существующей модели `User`. Например:
 
 ```php
 <?php
@@ -133,7 +135,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Eloquent
 {
-    use EntrustUserTrait; // add this trait to your user model
+    use EntrustUserTrait; //добавьте этот трейт в вашу модель User
 
     ...
 }
@@ -149,7 +151,7 @@ composer dump-autoload
 
 **And you are ready to go.**
 
-#### Soft Deleting
+#### Мягкое удаление
 
 The default migration takes advantage of `onDelete('cascade')` clauses within the pivot tables to remove relations when a parent record is deleted. If for some reason you cannot use cascading deletes in your database, the EntrustRole and EntrustPermission classes, and the HasRole trait include event listeners to manually delete records in relevant pivot tables. In the interest of not accidentally deleting data, the event listeners will **not** delete pivot data if the model uses soft deleting. However, due to limitations in Laravel's event listeners, there is no way to distinguish between a call to `delete()` versus a call to `forceDelete()`. For this reason, **before you force delete a model, you must manually delete any of the relationship data** (unless your pivot tables uses cascading deletes). For example:
 
@@ -166,9 +168,9 @@ $role->perms()->sync([]); // Delete relationship data
 $role->forceDelete(); // Now force delete will work regardless of whether the pivot table has cascading delete
 ```
 
-## Usage
+## Использование
 
-### Concepts
+### Концепции
 Let's start by creating the following `Role`s and `Permission`s:
 
 ```php
@@ -222,7 +224,7 @@ $owner->attachPermissions(array($createPost, $editUser));
 // equivalent to $owner->perms()->sync(array($createPost->id, $editUser->id));
 ```
 
-#### Checking for Roles & Permissions
+#### Проверка прав и ролей
 
 Now we can check for roles and permissions simply by doing:
 
@@ -264,7 +266,7 @@ Auth::user()->hasRole('role-name');
 Auth::user()->can('permission-name);
 ```
 
-#### User ability
+#### Возможности пользователей
 
 More advanced checking can be done using the awesome `ability` function.
 It takes in three parameters (roles, permissions, options):
@@ -322,7 +324,7 @@ var_dump($allValidations);
 // }
 ```
 
-### Short syntax route filter
+### Короткий синтаксис фильтров в роутерах
 
 To filter a route by permission or role you can call the following in your `app/Http/routes.php`:
 
@@ -370,7 +372,7 @@ Entrust::routeNeedsRoleOrPermission(
 );
 ```
 
-### Route filter
+### Фильтры в роутерах
 
 Entrust roles/permissions can be used in filters by simply using the `can` and `hasRole` methods from within the Facade:
 
@@ -426,7 +428,7 @@ then probably you don't have published Entrust assets or something went wrong wh
 First of all check that you have the `entrust.php` file in your `app/config` directory.
 If you don't, then try `php artisan vendor:publish` and, if it does not apper, manually copy the `/vendor/zizaco/entrust/src/config/config.php` file in your config directory and rename it `entrust.php`.
 
-## License
+## Лицензия
 
 Entrust is free software distributed under the terms of the MIT license.
 
