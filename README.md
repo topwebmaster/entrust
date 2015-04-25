@@ -13,7 +13,7 @@ Entrust - это лаконичны и гибкий способ добавле�
 ## Содержание
 
 - [Установка](#установка)
-- [Настройка](#configuration)
+- [Настройка](#Настройка)
     - [Пользовательские роли](#user-relation-to-roles)
     - [Модели](#models)
         - [Роль](#role)
@@ -49,7 +49,7 @@ in the providers array and
     
 to the `aliases` array.
 
-## Configuration
+## Настройка
 
 Set the property values in the `config/auth.php`.
 These values will be used by entrust to refer to the correct user table and model.
