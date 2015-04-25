@@ -8,31 +8,30 @@
 
 Entrust - это лаконичны и гибкий способ добавления системы прав пользователей основанной на ролях. Работает с **Laravel 5**.
 
-Если вам нужно такая же система для Laravel 4 смотрите тут [Branch 1.0](https://github.com/Zizaco/entrust/tree/1.0). It
-contains the latest entrust version for Laravel 4.
+Если вам нужно такая же система для Laravel 4 смотрите тут [Branch 1.0](https://github.com/Zizaco/entrust/tree/1.0). 
 
-## Contents
+## Содержание
 
-- [Installation](#installation)
-- [Configuration](#configuration)
-    - [User relation to roles](#user-relation-to-roles)
-    - [Models](#models)
-        - [Role](#role)
-        - [Permission](#permission)
-        - [User](#user)
-        - [Soft Deleting](#soft-deleting)
-- [Usage](#usage)
-    - [Concepts](#concepts)
-        - [Checking for Roles & Permissions](#checking-for-roles--permissions)
-        - [User ability](#user-ability)
-    - [Short syntax route filter](#short-syntax-route-filter)
-    - [Route filter](#route-filter)
-- [Troubleshooting](#troubleshooting)
-- [License](#license)
+- [Установка](#installation)
+- [Настройка](#configuration)
+    - [Пользовательские роли](#user-relation-to-roles)
+    - [Модели](#models)
+        - [Роль](#role)
+        - [Права](#permission)
+        - [Пользователь](#user)
+        - [Мягкое удаление](#soft-deleting)
+- [Использование](#usage)
+    - [Концепции](#concepts)
+        - [Проверка прав и ролей](#checking-for-roles--permissions)
+        - [Возможности пользователей](#user-ability)
+    - [Короткий синтаксис фильтров в роутерах](#short-syntax-route-filter)
+    - [Фильтры в роутерах](#route-filter)
+- [Решение проблем](#troubleshooting)
+- [Лицензия](#license)
 - [Contribution guidelines](#contribution-guidelines)
-- [Additional information](#additional-information)
+- [Дополнительная информация](#additional-information)
 
-## Installation
+## Установка
 
 In order to install Laravel 5 Entrust, just add 
 
